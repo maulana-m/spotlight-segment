@@ -7,12 +7,12 @@ import requests
 
 
 class Downloader:
-    def __init__(self, params: Dict[str, Any] = None):
+    def __init__(self, params: Dict[str, Any] = {}):
         self.client = YoutubeDL(params)
 
     def get_video_info(self, video_url: str) -> dict:
         try:
-            info = self.client.extract_info(url, download=False)
+            info = self.client.extract_info(video_url, download=False, process=False)
         except DownloadError as e:
             info = {}
 
