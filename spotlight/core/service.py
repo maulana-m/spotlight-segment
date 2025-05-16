@@ -1,8 +1,8 @@
-from downloader import Downloader
-from llm import GeminiApi
-from dto import SpotlightRequest, SpotlightSchema
-from constant import PROMPT_TEMPLATE
-from config import GENERAL_CONFIG
+from spotlight.core.downloader import Downloader
+from spotlight.core.llm import GeminiApi
+from spotlight.core.dto import SpotlightRequest, SpotlightSchema
+from spotlight.core.constant import PROMPT_TEMPLATE
+from spotlight.core.config import GENERAL_CONFIG
 
 
 class SpotlightService:

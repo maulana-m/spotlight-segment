@@ -1,4 +1,4 @@
-from config import GENERAL_CONFIG
+from spotlight.core.config import GENERAL_CONFIG
 from google import genai
 from google.genai import types
 
