@@ -1,0 +1,59 @@
+from downloader import Downloader
+from llm import GeminiApi
+from dto import SpotlightRequest, SpotlightSchema
+from constant import PROMPT_TEMPLATE
+from config import GENERAL_CONFIG
+
+
+class SpotlightService:
+    def __init__(self, _downloader, llm):
+        self.downloader = _downloader
+        self.llm = llm
+
+    def run(self, splotlight_request):
+        video_url = splotlight_request.video_url
+        lang = splotlight_request.lang
+
+        subtitle = self.downloader.get_subtitle_video(video_url)
+        prompt = self.construct_prompt(lang, subtitle)
+        # print(prompt)
+        response_schema = list[SpotlightSchema]
+
+        response_llm = self.llm.generate_completion(
+            prompt=prompt,
+            model=GENERAL_CONFIG.LLM_MODEL,
+            response_mime_type="application/json",
+            response_schema=response_schema
+        )
+        response = self._parse_completion(response_llm)
+
+        return response
+
+    def construct_prompt(self, language: str, xml_subtitle: str):
+        prompt = (PROMPT_TEMPLATE
+            .replace("{{language}}", language)
+            .replace("{{xml_subtitle}}", xml_subtitle)
+        )
+
+        return prompt
+
+    def _parse_completion(self, response_llm):
+        response = [x.model_dump() for x in response_llm.parsed]
+
+        return response
+
+
+if __name__ == "__main__":
+    downloader = Downloader()
+    llm = GeminiApi()
+    spotlight_service = SpotlightService(
+        _downloader=downloader,
+        llm=llm
+    )
+    request = SpotlightRequest(
+        video_url="https://www.youtube.com/watch?v=9WiB6hM55Qo",
+        lang="id"
+    )
+
+    response = spotlight_service.run(request)
+    print(response)

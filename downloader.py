@@ -7,7 +7,7 @@ import requests
 
 
 class Downloader:
-    def __init__(self, params: Dict[str, Any] = {}):
+    def __init__(self, params: Dict[str, Any] = {"quiet": True}):
         self.client = YoutubeDL(params)
 
     def get_video_info(self, video_url: str) -> dict:
@@ -36,7 +36,7 @@ class Downloader:
 
         # set english as default caption
         # todo custom languange
-        origin_captions = automatic_captions.get("en-orig")
+        origin_captions = automatic_captions.get("en")
 
         subtitle_url = None
         for subtitle_format in origin_captions:
@@ -49,9 +49,3 @@ class Downloader:
 
         return subtitle_content
 
-
-if __name__ == "__main__":
-    downloader = Downloader()
-    url = "https://www.youtube.com/watch?v=WpW36ldAqnM"
-    subtitle = downloader.get_subtitle_video(url)
-    print(subtitle)
