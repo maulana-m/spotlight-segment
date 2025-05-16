@@ -53,5 +53,5 @@ class Downloader:
 if __name__ == "__main__":
     downloader = Downloader()
     url = "https://www.youtube.com/watch?v=WpW36ldAqnM"
-    subtitle = downloader.get_subtitle_only(url)
+    subtitle = downloader.get_subtitle_video(url)
     print(subtitle)
