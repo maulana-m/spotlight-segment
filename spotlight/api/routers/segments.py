@@ -1,7 +1,6 @@
 from fastapi.routing import APIRouter
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from spotlight.core.config import GENERAL_CONFIG
 from spotlight.core.downloader import Downloader
 from spotlight.core.service import SpotlightService
 from spotlight.core.llm import GeminiApi
@@ -23,4 +22,3 @@ async def segments(request: Request, spotlight_request: SpotlightRequest):
     return JSONResponse(
         dict(data=response, status="success")
     )
-
