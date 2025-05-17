@@ -10,7 +10,7 @@ class SpotlightService:
         self.downloader = _downloader
         self.llm = llm
 
-    def run(self, splotlight_request):
+    async def run(self, splotlight_request):
         video_url = splotlight_request.video_url
         lang = splotlight_request.lang
 
@@ -19,7 +19,7 @@ class SpotlightService:
         # print(prompt)
         response_schema = list[SpotlightSchema]
 
-        response_llm = self.llm.generate_completion(
+        response_llm = await self.llm.generate_completion(
             prompt=prompt,
             model=GENERAL_CONFIG.LLM_MODEL,
             response_mime_type="application/json",
@@ -41,19 +41,3 @@ class SpotlightService:
         response = [x.model_dump() for x in response_llm.parsed]
 
         return response
-
-
-if __name__ == "__main__":
-    downloader = Downloader()
-    llm = GeminiApi()
-    spotlight_service = SpotlightService(
-        _downloader=downloader,
-        llm=llm
-    )
-    request = SpotlightRequest(
-        video_url="https://www.youtube.com/watch?v=9WiB6hM55Qo",
-        lang="id"
-    )
-
-    response = spotlight_service.run(request)
-    print(response)

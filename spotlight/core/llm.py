@@ -7,13 +7,13 @@ class GeminiApi:
 	def __init__(self):
 		self.client = genai.Client(api_key=GENERAL_CONFIG.GEMINI_API_KEY)
 
-	def generate_completion(self, prompt: str, model: str, response_mime_type: str, response_schema=None):
+	async def generate_completion(self, prompt: str, model: str, response_mime_type: str, response_schema=None):
 		config = types.GenerateContentConfig(
 			response_mime_type = response_mime_type,
 			response_schema=response_schema
 		)
 
-		response = self.client.models.generate_content(
+		response = await self.client.aio.models.generate_content(
 			model=model,
 			contents=prompt,
 			config=config
