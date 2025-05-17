@@ -1,5 +1,6 @@
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError
+from spotlight.core.exceptions import SubtitleNotFoundError
 from typing import Dict, Any
 import logging
 import json
@@ -37,6 +38,8 @@ class Downloader:
         # set english as default caption
         # todo custom languange
         origin_captions = automatic_captions.get("en")
+        if origin_captions is None:
+            raise SubtitleNotFoundError("Subtitle not found")
 
         subtitle_url = None
         for subtitle_format in origin_captions:

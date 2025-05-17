@@ -47,6 +47,10 @@ async def bad_request_exception_handler(_, error: Exception):
     return error_response(error, 400)
 
 
+async def subtitle_not_found_handler(_, error: Exception):
+    return error_response(error, 404)
+
+
 async def request_validation_handler(_: Request, error: RequestValidationError):
     validation_errors = [(".".join(str(x) for x in e["loc"]), e["type"])
                          for e in error.errors()]
