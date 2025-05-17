@@ -32,7 +32,7 @@ class Downloader:
     def get_subtitle_video(self, video_url: str) -> str:
         video_info = self.get_video_info(video_url)
         # self.save_info(video_info, "video_info.json")
-        automatic_captions = video_info.get("automatic_captions")
+        automatic_captions = video_info.get("automatic_captions", {})
 
         # set english as default caption
         # todo custom languange
@@ -48,4 +48,3 @@ class Downloader:
             subtitle_content = None
 
         return subtitle_content
-

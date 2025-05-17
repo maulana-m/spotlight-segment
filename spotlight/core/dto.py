@@ -1,4 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, field_validator, ValidationError
+from spotlight.core.exceptions import VideoUrlInvalidError
+import re
 
 
 class SpotlightSchema(BaseModel):
@@ -10,3 +12,11 @@ class SpotlightSchema(BaseModel):
 class SpotlightRequest(BaseModel):
     video_url: str
     lang: str
+
+    @field_validator("video_url")
+    def is_valid_youtube_url(cls, value):
+        pattern = r"^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.*[\w-]+\/?$"
+        match = re.match(pattern, value)
+        if not bool(match):
+            raise VideoUrlInvalidError("URL must be a youtube URL")
+        return value
