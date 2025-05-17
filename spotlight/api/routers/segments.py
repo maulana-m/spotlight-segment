@@ -15,7 +15,7 @@ spotlight_service = SpotlightService(
 )
 
 
-@router.post("/segments/")
+@router.post("/segments")
 async def segments(request: Request, spotlight_request: SpotlightRequest):
     response = await spotlight_service.run(spotlight_request)
 
