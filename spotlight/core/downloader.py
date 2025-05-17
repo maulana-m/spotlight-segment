@@ -1,11 +1,15 @@
 from yt_dlp import YoutubeDL
 from yt_dlp.utils import DownloadError
 from spotlight.core.exceptions import SubtitleNotFoundError
-from typing import Dict, Any
 from spotlight.core.config import GENERAL_CONFIG
-import logging
+from spotlight.core.dto import VideoInfo
+from typing import Dict, Any
 import json
 import requests
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Downloader:
@@ -29,9 +33,10 @@ class Downloader:
         if response.status_code == 200:
             return response.text
         else:
+            logger.warning("Download subtitle failed")
             return None
 
-    def get_subtitle_video(self, video_url: str) -> str:
+    def get_subtitle_video(self, video_url: str) -> VideoInfo:
         video_info = self.get_video_info(video_url)
         # self.save_info(video_info, "video_info.json")
         automatic_captions = video_info.get("automatic_captions", {})
@@ -46,9 +51,10 @@ class Downloader:
         for subtitle_format in origin_captions:
             if subtitle_format.get("ext") == "ttml":
                 subtitle_url = subtitle_format.get("url")
+
         if subtitle_url:
             subtitle_content = self.get_subtitle_content(subtitle_url)
         else:
             subtitle_content = None
 
-        return subtitle_content
+        return VideoInfo(video_id=video_info.get("id"), subtitle=subtitle_content)

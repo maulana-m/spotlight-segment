@@ -9,6 +9,11 @@ class SpotlightSchema(BaseModel):
     end_time: str
 
 
+class VideoInfo(BaseModel):
+    video_id: str
+    subtitle: str
+
+
 class SpotlightRequest(BaseModel):
     video_url: str
     lang: str
