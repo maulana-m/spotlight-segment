@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.115.12",
     "google-genai>=1.15.0",
+    "gradio>=5.30.0",
     "pydantic>=2.11.4",
     "pydantic-settings>=2.9.1",
     "uvicorn>=0.34.2",
