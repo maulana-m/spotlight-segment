@@ -1,10 +1,10 @@
 
 # Spotlight segment
 
-Spotlight Segment is an application that automatically identifies and extracts 'spotlight segments' from YouTube videos, providing you with a timeline of key moments. It leverages the power of  Large  Language Models (LLMs) to understand video content and pinpoint the most relevant sections.
+Spotlight Segment is an application that automatically identifies and extracts 'spotlight segments' from YouTube videos, providing you with a timeline of key moments. It leverages the power of Large Language Model (LLM) to understand video content and pinpoint the most relevant sections.
 
 
-## Installation
+## Getting Started
 
 ### 1. Use uv for project management 
 
