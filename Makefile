@@ -9,3 +9,6 @@ install:
 
 run:
 	uvicorn spotlight.api:app --port 5000 --reload
+
+gradio:
+	gradio app.py
