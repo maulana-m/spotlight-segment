@@ -77,6 +77,7 @@ async def run_splotlight(video_url, lang):
 
 
 with gr.Blocks(css=CSS) as demo:
+    gr.Markdown("## Spotlight Segment")
     video_url = gr.Textbox(label="Enter youtube url")
     lang = gr.Textbox(label="Language")
     run_button = gr.Button("Run", variant="primary")
